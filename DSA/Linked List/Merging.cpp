@@ -42,47 +42,46 @@ class Linkedlist : public Node
 
     void Merge(Node *ptr)
     {
-        Node *f = first;
-        Node *s = ptr;
-        Node *l = NULL;
+        Node *head1 = first;
+        Node *head2 = ptr;
 
-        while(f!= NULL || s!= NULL)
+        if(head1->data<=head2->data)
         {
-            if(f->data < s->data)
+            first = head1;
+            head1 = head1->next;
+        }
+        else
+        {
+            first = head2;
+            head2 = head2->next;
+        }
+        Node *l = first;
+
+        while(head1!=NULL && head2!=NULL)
+        {
+            if(head1->data <= head2->data)
             {
-                l = f;
-                f->next = s;
-                f=f->next;
+                l->next = head1;
+                l = head1;
+                head1 = head1->next;
             }
             else
             {
-                l = s;
-                s->next = f;
-                s=s->next;
+                l->next = head2;
+                l = head2;
+                head2 = head2->next;
             }
-        }
-        if(s == NULL)
-        {
-            Node *temp = f;
-            while (f!=NULL)
+
+            if(head1==NULL)
             {
-                temp = f;
-                f= f->next;
+                l->next = head2;
             }
-            l = temp;
-            last = l;
-        }
-        else if(f == NULL)
-        {
-            Node *temp = s;
-            while (f!=NULL)
+            else if (head2 == NULL)
             {
-                temp = s;
-                s= s->next;
+                l->next = head1;
             }
-            l = temp;
-            last = l;
         }
+        
 
     }
 };
@@ -90,17 +89,13 @@ class Linkedlist : public Node
 int main()
 {
     Linkedlist l1, l2;
-    int arr[] = {2, 4, 6, 8, 10};
+    int arr[] = {2, 4, 6, 8, 10, 12, 13};
     int arr2[] = {1, 3, 5, 7, 9};
-    l1.Create(arr, 5);
-    l2.Create(arr2, 5);
-    // l1.Display();
+    l2.Create(arr, 7);
+    l1.Create(arr2, 5);
+    // l1.Display();cout<<endl;
+    // l2.Display();cout<<endl;
     l1.Merge(l2.first);
     l1.Display();
-    
-    
-    // l.Display();
-
-
     return 0;
 }
