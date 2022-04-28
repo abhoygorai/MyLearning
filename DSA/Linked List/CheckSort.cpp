@@ -34,7 +34,7 @@ class Linkedlist : public Node
         Node*p = first;
         while(p!= NULL)
         {
-            cout<<p->data<<endl;
+            cout<<p->data  <<endl;
             p=p->next;
         }
         
