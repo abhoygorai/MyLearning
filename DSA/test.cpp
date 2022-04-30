@@ -1,15 +1,26 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
 using namespace std;
-
 
 int main()
 {
-    while (1)
+
+    char ch;
+    streambuf *p;
+    ofstream os;
+    os.open("test.txt");
+    p = os.rdbuf();
+
+    do
     {
-        cout<<"A"<<endl;
-    }
-    
-    
+
+        ch = cin.get();
+
+        p->sputc(ch);
+
+    } while (ch != '.');
+
+    os.close();
 
     return 0;
 }
