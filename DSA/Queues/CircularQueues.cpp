@@ -16,6 +16,7 @@ public:
         front = -1;
         rear = -1; 
     }
+    
     void enqueue(int x)
     {
         if((rear+1)%size == front)
@@ -26,6 +27,7 @@ public:
             Q[rear] = x;
         }
     }
+    
     int dequeue()
     {
         int x=-1;
