@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void BubSort(int *arr, int n){
+void BubSort(int arr[], int n){
     int flag;
     for(int i = 0; i<n-1; i++){
         flag = 0;
@@ -16,7 +16,7 @@ void BubSort(int *arr, int n){
     }
 }
 
-void InsertionSort(int *arr, int n)
+void InsertionSort(int arr[], int n)
 {
     int key, j;
     for(int i=1; i<n; i++)
@@ -33,13 +33,28 @@ void InsertionSort(int *arr, int n)
     }
 }
 
+void selectionSort(int arr[], int n)
+{
+    int i, j, min_ind;
+    for(i = 0; i<n-1; i++){
+        min_ind = i;
+        for(j=i+1; j<n; j++){
+
+            if(arr[j]<arr[min_ind])
+                min_ind = j;
+        }
+        swap(arr[i], arr[min_ind]);
+    }
+}
+
 int main(){
     // int arr[] = {1, 2, 3, 4, 5};
     int arr[] = {8, 5, 7, 3, 2};
-    InsertionSort(arr, 5);
+    selectionSort(arr, 5);
     for(auto x:arr){
         cout<<x<<endl;
     }
+    
 
     return 0;
 }
