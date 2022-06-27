@@ -6,7 +6,7 @@ class Node
     public:
     int data;
     Node *next;
-}*top = NULL;
+} *top = NULL;
 
 class Stack
 {

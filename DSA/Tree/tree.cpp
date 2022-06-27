@@ -4,6 +4,54 @@ using namespace std;
 class tnode;
 class Tree;
 
+class tnode{
+    public:
+    int data;
+    tnode *lchild;
+    tnode *rchild;
+};
+
+class snode: public tnode{
+    public:
+    tnode *sdata;
+    snode *next;
+};
+
+class Stack : public snode{
+    public:
+    snode *top = new snode;
+
+    void push(tnode *x){
+        snode *t = new snode;
+
+        if(t == NULL)
+            cout<<"Stack Overflow"<<endl;
+        else{
+            t->sdata = x;
+            t->next = top;
+            top = t;
+        }
+    }
+
+    tnode *pop(){
+        tnode *x = NULL;
+        snode *t;
+        if(top == NULL)
+            cout<<"Stack is empty"<<endl;
+        else{
+            t = top;
+            x = top->sdata;
+            top = top->next;
+            free(t);
+        }
+        return x;
+    }
+
+    int isEmpty(){
+        return (top==NULL);
+    }
+};
+
 class qnode{
     public:
     tnode *q_data;
@@ -65,13 +113,6 @@ class Queue : public qnode{
     }
 };
 
-class tnode{
-        public:
-        int data;
-        tnode *lchild;
-        tnode *rchild;
-    };
-
 class Tree : public Queue, public tnode{
     public:
     tnode *root = NULL;
@@ -82,7 +123,8 @@ class Tree : public Queue, public tnode{
         int l, r;
 
         root = new tnode;
-        root->rchild = root->lchild = NULL;
+        root->rchild = NULL;
+        root->lchild = NULL;
         q.enqueue(root);
 
         cout<<"Enter the root value: ";
@@ -107,15 +149,14 @@ class Tree : public Queue, public tnode{
             cin>>r;
 
             if(r != -1){
-                tnode *t = new tnode;
-                t->data = r;
-                p->rchild = t;
-                q.enqueue(t);
+                tnode *i = new tnode;
+                i->data = r;
+                p->rchild = i;
+                q.enqueue(i);
             }
             else
                 p->rchild = NULL;
         }
-        // q.Display();
     }
 
     void Preorder(tnode *p){
@@ -125,19 +166,67 @@ class Tree : public Queue, public tnode{
             Preorder(p->rchild);
         }
     }
+
+    void Preorder2(){
+        Stack st;
+        tnode *t = root;
+        while(t!=NULL || !st.isEmpty()){
+            if(t){
+                cout<<t->data<<" ";
+                st.push(t);
+                t = t->lchild;
+            }
+            else{
+                t = st.pop();
+                t = t->rchild;
+            }
+        }
+    }
+
+    void Inorder(tnode *p){
+        if(p){
+            Inorder(p->lchild);
+            cout<<p->data<<" ";
+            Inorder(p->rchild);
+        }
+    }
+
+    void Postorder(tnode *p){
+        if(p){
+            Postorder(p->lchild);
+            Postorder(p->rchild);
+            cout<<p->data<<" ";
+        }
+    }
+
+    void LevelOrder(){
+        Queue q;
+        tnode *p = root;
+        cout<<p->data;
+        q.enqueue(p);
+        while(!q.isEmpty()){
+            p = q.dequeue();
+
+            if(p->lchild){
+                cout<<p->lchild->data;
+                q.enqueue(p->lchild);
+            }
+
+            if(p->rchild){
+                cout<<p->rchild->data;
+                q.enqueue(p->rchild);
+            }
+        }
+    }
 };
 
 
 int main(){
 
-
-    cout<<"hello"<<endl;
-
     Tree t;
     t.create();
 
-    t.Preorder(t.root);
-
+    t.LevelOrder();
 
     return 0;
 }
