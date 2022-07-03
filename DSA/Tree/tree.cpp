@@ -1,9 +1,11 @@
 #include <bits/stdc++.h> 
 using namespace std;
 
+// declaration of node classes
 class tnode;
 class Tree;
 
+// class of nodes defined here
 class tnode{
     public:
     int data;
@@ -17,6 +19,7 @@ class snode: public tnode{
     snode *next;
 };
 
+// the class of stack here
 class Stack : public snode{
     public:
     snode *top = new snode;
@@ -58,6 +61,7 @@ class qnode{
     qnode *next;
 };
 
+// the class of queue 
 class Queue : public qnode{
     public:
     qnode *front = NULL;
@@ -113,6 +117,7 @@ class Queue : public qnode{
     }
 };
 
+// the class of tree
 class Tree : public Queue, public tnode{
     public:
     tnode *root = NULL;
